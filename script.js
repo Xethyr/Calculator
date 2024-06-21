@@ -1,9 +1,5 @@
 const display = document.getElementById("display");
 
-function appendToDisplay(input) {
-    display.value += input;
-}
-
 function clearDisplay() {
     display.value = '';
 }
@@ -31,6 +27,37 @@ function multiply(num1, num2) {
 
 function divide(num1, num2) {
     return num1 / num2;
+}
+
+let firstNumber = 0;
+let secondNumber = 0;
+let operator = '';
+
+function whenOperatorPressed(operatorPressed) {
+    firstNumber = display.value;
+    operator = operatorPressed;
+    clearDisplay();
+    appendToDisplay(operatorPressed);
+    console.log(firstNumber, operator);
+}
+
+function appendToDisplay(input) {
+    display.value += input;
+}
+
+function operate(operator, num1, num2) {
+    if (operator === "+") {
+        return add(num1, num2);
+    }
+    if (operator === "-") {
+        return subtract(num1, num2);
+    }
+    if (operator === "*") {
+        return multiply(num1, num2);
+    }
+    if (operator === "/") {
+        return divide(num1, num2);
+    }
 }
 
 window.addEventListener('keydown', (e) => { // Adds keyboard functionality
