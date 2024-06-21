@@ -2,16 +2,19 @@ const display = document.getElementById("display");
 
 function clearDisplay() {
     display.value = '';
+    firstNumber = null;
+    secondNumber = null;
+    operator = null;
 }
 
-function calculate() {
-    try {
-        display.value = eval(display.value);
-    }
-    catch(error) {
-        display.value = "Error";
-    }
-}
+// function calculate() {
+//     try {
+//         display.value = eval(display.value);
+//     }
+//     catch(error) {
+//         display.value = "Error";
+//     }
+// }
 
 function add(num1, num2) {
     return num1 + num2;
@@ -35,16 +38,19 @@ let operator = null;
 
 function getValues() {
     const values = display.value.split(' ');
-    console.log(values);
+    firstNumber = values[0];
+    operator = values[1];
+    secondNumber = values[2];
+    display.value = operate(operator, Number(firstNumber), Number(secondNumber));
 }
 
-function whenOperatorPressed(operatorPressed) {
-    firstNumber = display.value;
-    operator = operatorPressed;
-    clearDisplay();
-    appendToDisplay(operatorPressed);
-    console.log(firstNumber, operator);
-}
+// function whenOperatorPressed(operatorPressed) {
+//     firstNumber = display.value;
+//     operator = operatorPressed;
+//     clearDisplay();
+//     appendToDisplay(operatorPressed);
+//     console.log(firstNumber, operator);
+// }
 
 function appendToDisplay(input) {
     display.value += input;
