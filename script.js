@@ -29,9 +29,14 @@ function divide(num1, num2) {
     return num1 / num2;
 }
 
-let firstNumber = 0;
-let secondNumber = 0;
-let operator = '';
+let firstNumber = null;
+let secondNumber = null;
+let operator = null;
+
+function getValues() {
+    const values = display.value.split(' ');
+    console.log(values);
+}
 
 function whenOperatorPressed(operatorPressed) {
     firstNumber = display.value;
