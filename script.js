@@ -1,12 +1,12 @@
 const display = document.getElementById("display");
 const decimal = document.getElementById('decimal');
+const operatorBtns = document.querySelectorAll('.operator');
 
 function clearDisplay() {
     display.value = '';
     firstNumber = null;
     secondNumber = null;
     operator = null;
-    decimal.disabled = false;
 }
 
 // function calculate() {
@@ -46,16 +46,24 @@ function getValues() {
     operator = values[1];
     secondNumber = values[2];
     let result = operate(operator, Number(firstNumber), Number(secondNumber));
-    display.value = result;
-    
+    const truncatedResult = Number(result.toString().split('').slice(0, 10).join(''));
+    if (result.toString().split('').slice(0, 11)[-1] >= 5 && result.toString().split('').includes('.')) {
+        const numberToBeRounded = Number(result.toString().split('').slice(0, 10)[-1]);
+        const roundedNumber = numberToBeRounded + 1;
+        const roundedNumberString = roundedNumber.toString();
+        result.toString().split('').slice(0, 10)[-1] = roundedNumberString;
+        const roundedResult = Number(result.toString().split('').slice(0, 10));
+        display.value = roundedResult;
+
+    } else {
+        display.value = truncatedResult;
+    }
     if (values.length > 3) {
         let secondOperator = values[3];
         let thirdNumber = values [4];
         display.value = operate(secondOperator, result, Number(thirdNumber));
     }
 }
-
-
 
 function appendToDisplay(input) {
     display.value += input;
@@ -96,4 +104,10 @@ window.addEventListener('keydown', (e) => { // Adds keyboard functionality
 
 decimal.addEventListener('click', () => { //Disables more than one decimal
     decimal.disabled = true;
+})
+
+operatorBtns.forEach((operator) => {
+    operator.addEventListener('click', () => {
+        decimal.disabled = false;
+    })
 })
