@@ -1,10 +1,12 @@
 const display = document.getElementById("display");
+const decimal = document.getElementById('decimal');
 
 function clearDisplay() {
     display.value = '';
     firstNumber = null;
     secondNumber = null;
     operator = null;
+    decimal.disabled = false;
 }
 
 // function calculate() {
@@ -36,21 +38,24 @@ let firstNumber = null;
 let secondNumber = null;
 let operator = null;
 
+
+
 function getValues() {
     const values = display.value.split(' ');
     firstNumber = values[0];
     operator = values[1];
     secondNumber = values[2];
-    display.value = operate(operator, Number(firstNumber), Number(secondNumber));
+    let result = operate(operator, Number(firstNumber), Number(secondNumber));
+    display.value = result;
+    
+    if (values.length > 3) {
+        let secondOperator = values[3];
+        let thirdNumber = values [4];
+        display.value = operate(secondOperator, result, Number(thirdNumber));
+    }
 }
 
-// function whenOperatorPressed(operatorPressed) {
-//     firstNumber = display.value;
-//     operator = operatorPressed;
-//     clearDisplay();
-//     appendToDisplay(operatorPressed);
-//     console.log(firstNumber, operator);
-// }
+
 
 function appendToDisplay(input) {
     display.value += input;
@@ -87,4 +92,8 @@ window.addEventListener('keydown', (e) => { // Adds keyboard functionality
     if (e.key === 'Enter') {
         getValues();
     }
+})
+
+decimal.addEventListener('click', () => { //Disables more than one decimal
+    decimal.disabled = true;
 })
