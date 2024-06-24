@@ -46,18 +46,24 @@ function getValues() {
     operator = values[1];
     secondNumber = values[2];
     let result = operate(operator, Number(firstNumber), Number(secondNumber));
-    const truncatedResult = Number(result.toString().split('').slice(0, 10).join(''));
-    if (result.toString().split('').slice(0, 11)[-1] >= 5 && result.toString().split('').includes('.')) {
-        const numberToBeRounded = Number(result.toString().split('').slice(0, 10)[-1]);
-        const roundedNumber = numberToBeRounded + 1;
-        const roundedNumberString = roundedNumber.toString();
-        result.toString().split('').slice(0, 10)[-1] = roundedNumberString;
-        const roundedResult = Number(result.toString().split('').slice(0, 10));
-        display.value = roundedResult;
+    // const truncatedResult = Number(result.toString().split('').slice(0, 10).join(''));
+    const TOTAL_DIGITS = 10
+    const digitsToLeft = Math.max(1, Math.ceil(Math.log10(result)))
+    const digitsToRight = TOTAL_DIGITS - digitsToLeft
+    result = Math.round(result * 10**digitsToRight) / 10**digitsToRight
+    display.value = result;
+    console.log(result);
+    // if (result.toString().split('').slice(0, 11).at(-1) >= 5 && result.toString().split('').includes('.')) {
+    //     const numberToBeRounded = Number(result.toString().split('').slice(0, 10).at(-1));
+    //     const roundedNumber = numberToBeRounded + 1;
+    //     const roundedNumberString = roundedNumber.toString();
+    //     result.toString().split('').slice(0, 10).at(-1) = roundedNumberString;
+    //     const roundedResult = Number(result.toString().split('').slice(0, 10));
+    //     display.value = roundedResult;
 
-    } else {
-        display.value = truncatedResult;
-    }
+    // } else {
+    //     display.value = truncatedResult;
+    // }
     if (values.length > 3) {
         let secondOperator = values[3];
         let thirdNumber = values [4];
