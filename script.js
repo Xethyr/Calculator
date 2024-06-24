@@ -31,6 +31,10 @@ function multiply(num1, num2) {
 }
 
 function divide(num1, num2) {
+    if (num2 === 0) {
+        alert("Don't even think about it.");
+        return;
+    }
     return num1 / num2;
 }
 
